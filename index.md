@@ -64,78 +64,16 @@ TypeError: Cannot read property 'message' of undefined
 ```
 
 ### Desired behavior
-AOT compilation of my source code.
+AOT compilation of source code.
 
-### Mention any other details that might be useful (optional)
-**webpack.config.ts (main part for aot compiler)**
-```
- ...
-  , plugins: [
-      new ProgressPlugin()
-    , new HtmlWebpackPlugin({
-        inject: false
-        , template: helpers.getPath('config/webpack/index.ejs')
-        , title: 'Webapp V2'
-        , filename: 'index.html'
-    })
-  , new AngularCompilerPlugin({
-        tsConfigPath: helpers.getPath('tsconfig.json')
-        , entryModule: helpers.getPath('src/client/web.module#AppComponent')
-    })
-  ]
-, module: {
-    rules: [
-        { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/ , loader: '@ngtools/webpack' }
-      , { test: /\.html$/ , loader: "raw-loader" , exclude: /\.async\.html$/ }
-      , { test: /\.css$/ , loader: ['css-loader'] }
-   ]
-  }
-```
-**web.main.ts**
-```
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import {enableProdMode} from '@angular/core';
-import { WebModule } from './web.module';
-platformBrowserDynamic().bootstrapModule(WebModule /*, options*/)
-  .catch(err => console.log(err));
+### Other details
 
-```
-**web.module.ts**
-```
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_COMPONENTS, AppComponent } from './app/components/index.components';
+# Works with other compiler
+The app compiles perfectly with "awesome-typescript-compiler" without AOT. 
+** YOU HAVE TO COMMENT OUT THE "new AngularCompilerPlugin"-part!!!! **
 
-@NgModule({
-  imports: [ BrowserModule ],
-  declarations: [ APP_COMPONENTS ],
-  bootstrap: [ AppComponent ]
-})
-export class WebModule { }
-
-```
-**app.component.ts**
-```
-import { Component } from '@angular/core';
-@Component ({
-   moduleId: module.id.toString()
-  , selector: 'aslingo-app'
-  , templateUrl: 'app.component.html'
-  , styleUrls: ['app.component.css']
-})
-
-export class AppComponent {  title = 'title is that'; }
-
-```
-**index.components.ts**
-```
-import { AppComponent } from './app.component';
-export const APP_COMPONENTS: any[] = [  AppComponent ];
-export * from './app.component';
-```
-
-- The app compiles perfectly with "awesome-typescript-compiler" without AOT. 
-- It  does compile with "skipCodeGeneration: true" (ngctools/webpack), but with errors:
+# Different error with code generation on ngtools/webpack
+It  does compile with "skipCodeGeneration: true" (ngctools/webpack), but with errors:
 ```
 ERROR in Error: No NgModule metadata found for 'AppComponent'.
     at NgModuleResolver.resolve (/home/python1/Dokumente/development/git/v2-web-client/node_modules/packages/compiler/esm5/src/ng_module_resolver.js:50:12)
