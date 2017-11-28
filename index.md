@@ -63,3 +63,8 @@ ERROR in Error: No NgModule metadata found for 'AppComponent'.
     at startup (bootstrap_node.js:187:16)
     at bootstrap_node.js:608:3
 ```
+
+## RESEARCH RESULTS
+Type of Result | Description
+------------ | -------------
+Error specification | If "awesome-typescript-loader" is used with the "new AngularCompilerPlugin"(ACP) part active (means "not commented out"), then the "No NgModule metadata"-error still occurs. => CONCLUSION: It is the webpack config parser witch has a problem rendering the plugin-configuration of ACP.
