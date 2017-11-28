@@ -2,42 +2,13 @@
 
 This code is a temporary one, to get rid of the message undefined error.
 
-
-
 ### Versions
-```
-$ ng --version
-Angular CLI: 1.5.4
-Node: 8.9.1
-OS: linux x64
-Angular: 5.0.3
-... core
-@angular/cli: 1.5.4
-@angular/common: 5.0.1
-@angular/compiler-cli: 5.0.1
-@angular/compiler: 5.0.1
-@angular/platform-browser-dynamic: 5.0.1
-@angular/platform-browser: 5.0.1
-@angular-devkit/build-optimizer: 0.0.33
-@angular-devkit/core: 0.0.21
-@angular-devkit/schematics: 0.0.37
-@ngtools/json-schema: 1.1.0
-@ngtools/webpack: 1.8.0
-@schematics/angular: 0.1.7
-typescript-register: 1.1.0
-typescript-require: 0.2.9
-typescript: 2.6.1
-webpack-config: 7.5.0
-webpack-dev-server: 2.9.4
-webpack-node-externals: 1.6.0
-webpack-stream: 4.0.0
-webpack: 3.8.1
-```
-`LInux: Ubuntu 16.04.3 LTS - 4.10.0-40-generic #44~16.04.1-Ubuntu SMP - x86_64`
-
+See output of `$ ng --version`
+Tested on `LInux: Ubuntu 16.04.3 LTS - 4.10.0-40-generic #44~16.04.1-Ubuntu SMP - x86_64`
 
 ### Repro steps
-Use my config and app-files below.
+`npm install`
+`npm -s run build:aot`
 
 ### Observed behavior
 ```
@@ -66,13 +37,13 @@ TypeError: Cannot read property 'message' of undefined
 ### Desired behavior
 AOT compilation of source code.
 
-### Other details
+## Other details
 
-# Works with other compiler
+### Works with other compiler
 The app compiles perfectly with "awesome-typescript-compiler" without AOT. 
 ** YOU HAVE TO COMMENT OUT THE "new AngularCompilerPlugin"-part!!!! **
 
-# Different error with code generation on ngtools/webpack
+### Different error with code generation on ngtools/webpack
 It  does compile with "skipCodeGeneration: true" (ngctools/webpack), but with errors:
 ```
 ERROR in Error: No NgModule metadata found for 'AppComponent'.
