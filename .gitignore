@@ -1,0 +1,6 @@
+**/build/
+**/node_modules/
+**/*.js
+**/*.js.map
+!**/systemjs*.js
+**/desktop.ini
