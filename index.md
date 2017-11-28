@@ -9,6 +9,7 @@ Tested on `LInux: Ubuntu 16.04.3 LTS - 4.10.0-40-generic #44~16.04.1-Ubuntu SMP 
 
 ### Repro steps
 `npm install`
+
 `npm -s run build:aot`
 
 ### Observed behavior
