@@ -2,6 +2,8 @@
 
 This code is a temporary one, to get rid of the message undefined error.
 
+*NOTE: This is not the complete project - only the part to trace the error!*
+
 ### Versions
 See output of `$ ng --version`
 
