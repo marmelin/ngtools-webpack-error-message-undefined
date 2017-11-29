@@ -71,3 +71,4 @@ Type of Result | Description
 ------------ | -------------
 Error specification | If "awesome-typescript-loader" is used with the "new AngularCompilerPlugin"(ACP) part active (means "not commented out"), then the "No NgModule metadata"-error still occurs. => CONCLUSION: It is the webpack config parser witch has a problem rendering the plugin-configuration of ACP.
 Error transformation | if "ngtools/Webpack" compiler is used with "skipCodeGeneration:true", the use of `, mainPath: helpers.getPath('src/client/web.main')  // will auto-detect the root NgModule.` instead of "entryModule:..." will result in a different error: `ERROR in TypeError: Cannot read property 'length' of undefined` ! => CONCLUSION: ???
+FIX: JIT compilation works | If "src/client/web.main.ts" is used as path for the "mainPath" option (without "entryModule"-options!), every thing compiles successfully with "skipCodeGeneration: true". (or if you don't use "mainPath" or "entryModule" at all!)
