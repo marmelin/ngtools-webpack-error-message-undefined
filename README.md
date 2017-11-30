@@ -47,7 +47,7 @@ AOT compilation of source code.
 The app compiles perfectly with "awesome-typescript-compiler" without AOT. 
 **YOU HAVE TO COMMENT OUT THE "new AngularCompilerPlugin"-part!!!!**
 
-### Different error with code generation on ngtools/webpack
+### :white_check_mark: [FIXED]:  Different error with code generation on ngtools/webpack
 It  does compile with "skipCodeGeneration: true" (ngctools/webpack), but with errors:
 ```
 ERROR in Error: No NgModule metadata found for 'AppComponent'.
