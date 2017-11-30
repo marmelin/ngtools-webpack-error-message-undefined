@@ -18,7 +18,7 @@
 
     }
     , "exclude": [
-      "build" , "temp"
+      "buildAOT" , "temp"
     ]
   , "awesomeTypescriptLoaderOptions": {
       "forkChecker": true,
@@ -26,7 +26,5 @@
       "useCache": false
    }
   , "angularCompilerOptions": {
-    "genDir": "aot",
-    "skipMetadataEmit" : true
   }
 }

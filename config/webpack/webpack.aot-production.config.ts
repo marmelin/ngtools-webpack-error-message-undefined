@@ -13,6 +13,8 @@ const root = helpers.getPath("");
 console.log("[DEBUG]::BuildPath: " + helpers.getPath(ProdAOTConfig.buildPath + "/" + ProdAOTConfig.urlAppContext));
 console.log("[DEBUG]::PublicPath: " + ProdAOTConfig.serverURL + ProdAOTConfig.urlAppContext);
 
+const nodeExternals = require('webpack-node-externals');
+
 const AOTConfig = {
     // ---------------------------------------------------------------------
   stats: {
@@ -25,6 +27,7 @@ const AOTConfig = {
     , publicPath: true
     , children: true
   }
+  // , externals: nodeExternals()
   // ---------------------------------------------------------------------
   , context: root
   // ---------------------------------------------------------------------
@@ -49,6 +52,14 @@ const AOTConfig = {
   , plugins: [
       // ---------------------------------------------------------------------
       new ProgressPlugin()
+    , new webpack.ContextReplacementPlugin(
+        //  Workaround for angular/angular#11580
+        // WARNING in ./node_modules/@angular/core/@angular/core.es5.js
+        // Critical dependency: the request of a dependency is an expression
+        // The (\\|\/) piece accounts for path separators in *nix and Windows
+        /angular(\\|\/)core(\\|\/)(@angular|esm5)/
+        , helpers.getPath('src')
+      )
     , new HtmlWebpackPlugin({
         inject: false
         , template: helpers.getPath('config/webpack/index.ejs')
@@ -57,9 +68,10 @@ const AOTConfig = {
     })
   , new AngularCompilerPlugin({
         tsConfigPath: helpers.getPath('tsconfig.json')
-        // , mainPath: helpers.getPath('src/client/web.module')  // will auto-detect the root NgModule.
-        , entryModule: helpers.getPath('src/client/web.module#AppComponent')
-        , skipCodeGeneration: true
+        // , mainPath: helpers.getPath('src/client/web.main.ts')  // will auto-detect the root NgModule.
+        // , entryModule: helpers.getPath('src/client/web.module#AppComponent')
+        , skipCodeGeneration: false // true gives a JIT build; false is AOT build
+        , strictMetadataEmit: true // Report syntax errors - no .metadata.json
 
     })
   ]
@@ -69,7 +81,7 @@ const AOTConfig = {
     rules: [
       // // ============== TS
         { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/
-          // , use: ['@ngtools/webpack', 'angular2-template-loader' ]
+          // , use: ['awesome-typescript-loader', 'angular2-template-loader' ]
           , loader: '@ngtools/webpack'
           // , sourcemap:true --- does not work
         }

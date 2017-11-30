@@ -5,17 +5,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "gulp",
-    "build:dev": "gulp workflow-build-dev",
-    "build:prod": "gulp workflow-build-prod ",
-    "build:prod:aot": "gulp workflow-build-prod-aot ",
-    "dev": "gulp workflow-devsrv",
-    "wp": "webpack --config config/webpack/webpack.aot-production.config.ts ",
-    "wds": "NODE_ENV=development webpack-dev-server --config config/webpack/webpack.config.ts --inline --port 3001 --host localhost --hot",
-    "dist": "npm run wp && http-server ./build -p 3001",
-    "test:e2e": "gulp workflow-test-e2e",
-    "test:web": "gulp workflow-testsrv",
-    "test:node": "mocha-webpack --opts config/test-environment/mocha/mocha-webpack.opts",
-    "tsc:e2e": "tsc --project e2e/tsconfig.e2e.json"
+    "build:aot": "NODE_ENV=production webpack --config config/webpack/webpack.aot-production.config.ts ",
+    "build:aot:prod": "NODE_ENV=production webpack --config config/webpack/webpack.aot-production.config.ts ",
+    "serve:aot": "npm run wp && http-server ./buildAot -p 3001"
   },
   "dependencies": {
     "core-js": "^2.5.1",
@@ -51,7 +43,6 @@
     "@types/webpack-env": "^1.13.2",
     "@types/webpack-stream": "^3.2.8",
     "@types/zone.js": "^0.5.12",
-    "@ultimate/aot-loader": "^0.1.16",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.3.0",
     "chai": "^4.1.2",

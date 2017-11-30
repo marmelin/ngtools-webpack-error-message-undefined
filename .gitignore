@@ -1,4 +1,5 @@
 **/build/
+**/buildAOT/
 **/node_modules/
 **/*.js
 **/*.js.map

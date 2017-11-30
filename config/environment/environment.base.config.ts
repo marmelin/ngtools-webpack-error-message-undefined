@@ -10,7 +10,7 @@ const BaseConfig: EnvConfig = {
   , server : "localhost"
   , port : "3001"
   , proto : "http"
-  , urlAppContext: "app"
+  , urlAppContext: "/app"
   , rootPath: helpers.getPath()
   , buildPath: helpers.getPath("build")
 };
