@@ -4,6 +4,14 @@ This code is a temporary one, to get rid of the message undefined error.
 
 *NOTE: This is not the complete project - only the part to trace the error!*
 
+# [SOLVED]: Working version commited!
+
+ **:bangbang::white_check_mark::bangbang: All erros are solved in this project!**
+ 
+ **You can however recreate all errors to learn from it. Just have a look**
+ **at the comments within "config/webpack/webpack.aot-production.config.ts"!**
+
+
 ### Versions
 See output of `$ ng --version`
 
