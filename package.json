@@ -7,9 +7,10 @@
     "start": "gulp",
     "build:aot": "NODE_ENV=production webpack --config config/webpack/webpack.aot-production.config.ts ",
     "build:aot:prod": "NODE_ENV=production webpack --config config/webpack/webpack.aot-production.config.ts ",
-    "serve:aot": "npm run wp && http-server ./buildAot -p 3001"
+    "serve:aot": "npm run build:aot:prod && http-server ./buildAOT -p 3001 -g"
   },
   "dependencies": {
+    "@angular-devkit/build-optimizer": "0.0.34",
     "core-js": "^2.5.1",
     "gulp-template": "^4.0.0",
     "rxjs": "^5.5",
@@ -49,6 +50,7 @@
     "chai-spies": "^0.7.1",
     "circular-dependency-plugin": "^4.2.1",
     "clean-webpack-plugin": "^0.1.17",
+    "compression-webpack-plugin": "^1.0.1",
     "css-loader": "latest",
     "css-to-string-loader": "latest",
     "del": "^3.0.0",
