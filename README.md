@@ -80,3 +80,29 @@ Type of Result | Description
 Error specification | If "awesome-typescript-loader" is used with the "new AngularCompilerPlugin"(ACP) part active (means "not commented out"), then the "No NgModule metadata"-error still occurs. => CONCLUSION: It is the webpack config parser witch has a problem rendering the plugin-configuration of ACP.
 Error transformation | if "ngtools/Webpack" compiler is used with "skipCodeGeneration:true", the use of `, mainPath: helpers.getPath('src/client/web.main')  // will auto-detect the root NgModule.` instead of "entryModule:..." will result in a different error: `ERROR in TypeError: Cannot read property 'length' of undefined` ! => CONCLUSION: ???
 :white_check_mark: FIX: JIT compilation works | If "src/client/web.main.ts" is used as path for the "mainPath" option (without "entryModule"-options!), every thing compiles successfully with "skipCodeGeneration: true". (or if you don't use "mainPath" or "entryModule" at all!)
+All errors fixed | **:white_check_mark: [SOLVED] AOT working with webpack 3 and ngtools/webpack**
+
+So it was all about these things:
+
+- You can't use **extract-text-webpack-plugin** for components CSS templates, because it does not support / or do not function with "Child compilations". However you can with global css.
+Use two CSS rules in webpack config: 1) with "css-loader" and second with extract-text-webpack-plugin and include statement, for your global CSS files.
+```
+  // COMPONENT CSS LOADER
+      , { test: /\.css$/
+        , use: ['css-to-string-loader'].concat(['css-loader'])
+        }
+      // GLOBAL CSS LOADER
+      , { test: /\.css$/
+         , include: helpers.getPath('src/client/style')
+         , use: ['css-to-string-loader'].concat(
+            ExtractTextPlugin.extract({
+                fallback: 'style-loader'
+              , use: ['css-loader']
+            })
+          )
+        }
+```
+I had to use "css-to-string-loader" to get rid of "Loader expecting string array"-error!
+- I used the wrong module (like the one with "NgModules" definitions instead of the main module with bootstrap for "mainPath" and "entryModule" options. 
+--This is why I got `No **NgModule** metadata found for 'AppComponent'` error - in JIT MODE (skipCodeGeneration:true)
+- I wrote the **path to main file like a module import** in "mainPath" option - means without ".ts" at the end! ("web.main" instead of "web.main.ts").  This leads to `Cannot read property length of undefined` and `...message of undefined...` errors.
